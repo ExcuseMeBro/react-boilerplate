@@ -11,4 +11,4 @@
 - Prettier
 - ESLint
 - React Router
-- Redux Toolkit# react-boilerplate
+- Redux Toolkit
