@@ -13,3 +13,4 @@
 - React Router
 - Redux Toolkit
 - TanStackQuery
+- React Form Hook (for validation)
