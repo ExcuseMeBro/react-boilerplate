@@ -12,3 +12,4 @@
 - ESLint
 - React Router
 - Redux Toolkit
+- TanStackQuery
