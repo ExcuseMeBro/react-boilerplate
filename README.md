@@ -14,3 +14,4 @@
 - Redux Toolkit
 - TanStackQuery
 - React Form Hook (for validation)
+- Internalization (i18n)
