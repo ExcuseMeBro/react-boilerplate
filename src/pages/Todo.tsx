@@ -2,8 +2,9 @@ import Default from '@/layouts/Default.tsx';
 import { useAppDispatch, useTypedSelector } from '@/store';
 import { CounterServices } from '@/reducers/CounterSlice';
 import { useTranslation } from 'react-i18next';
+import i18n from '@/plugins/i18n.ts';
 export default function Todo() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const changeLang = (lang: string) => {
     i18n.changeLanguage(lang);
