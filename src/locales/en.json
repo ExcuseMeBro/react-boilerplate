@@ -1,3 +1,40 @@
 {
-  "hello": "Hello!"
+  "app": {
+    "name": "React Boilerplate",
+    "tagline": "Production-ready starter for REST apps"
+  },
+  "nav": {
+    "home": "Home",
+    "todos": "Todos",
+    "animation": "Animation",
+    "language": "Language"
+  },
+  "home": {
+    "eyebrow": "Modern React starter",
+    "title": "Ship faster with clean defaults.",
+    "description": "Vite, React, TypeScript, REST API helpers, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind, and Remotion are ready out of the box.",
+    "ctaPrimary": "Open todos",
+    "ctaSecondary": "View animation",
+    "features": {
+      "rest": "REST-first API layer",
+      "auth": "JWT-ready auth flow",
+      "tooling": "Biome formatting and linting",
+      "i18n": "English, Uzbek, and Russian i18n"
+    }
+  },
+  "todos": {
+    "title": "Todos",
+    "description": "Example feature module with REST service patterns and typed state.",
+    "counter": "Count: {{count}}",
+    "increment": "Increment",
+    "apiNote": "Connect your backend at VITE_API_URL to enable live REST data."
+  },
+  "animation": {
+    "title": "Remotion animation",
+    "description": "Reusable video composition for product intros, onboarding, and marketing clips."
+  },
+  "auth": {
+    "status": "Auth strategy: {{strategy}}",
+    "jwtHint": "Prefer server-set httpOnly cookies in production. Bearer tokens are supported when your API requires them."
+  }
 }

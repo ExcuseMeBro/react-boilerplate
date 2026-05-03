@@ -1,14 +1,26 @@
 import { createBrowserRouter } from 'react-router-dom';
-import App from '../App.tsx';
-import Todo from '../pages/Todo.tsx';
+import HomePage from '@/App';
+import DefaultLayout from '@/layouts/Default';
+import AnimationPage from '@/pages/Animation';
+import TodoPage from '@/pages/Todo';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
-  },
-  {
-    path: '/todo',
-    element: <Todo />,
+    element: <DefaultLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: 'todos',
+        element: <TodoPage />,
+      },
+      {
+        path: 'animation',
+        element: <AnimationPage />,
+      },
+    ],
   },
 ]);

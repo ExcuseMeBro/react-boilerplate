@@ -1,18 +1,23 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
-import CounterReducer from '@/reducers/CounterSlice';
+import { type TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import authReducer from '@/features/auth/slice';
+import counterReducer from '@/reducers/CounterSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    Counter: CounterReducer,
-    // Another reducers here...
+    auth: authReducer,
+    counter: counterReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: true,
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
-export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export default store;

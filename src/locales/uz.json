@@ -1,3 +1,40 @@
 {
-  "hello": "Assalomu aleykum!"
+  "app": {
+    "name": "React Boilerplate",
+    "tagline": "REST ilovalar uchun production-ready starter"
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "todos": "Vazifalar",
+    "animation": "Animatsiya",
+    "language": "Til"
+  },
+  "home": {
+    "eyebrow": "Zamonaviy React starter",
+    "title": "Toza defaultlar bilan tezroq ship qiling.",
+    "description": "Vite, React, TypeScript, REST API helperlar, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind va Remotion tayyor holatda keladi.",
+    "ctaPrimary": "Vazifalarni ochish",
+    "ctaSecondary": "Animatsiyani ko‘rish",
+    "features": {
+      "rest": "REST-first API qatlami",
+      "auth": "JWT-ready auth oqimi",
+      "tooling": "Biome formatlash va linting",
+      "i18n": "Inglizcha, o‘zbekcha va ruscha i18n"
+    }
+  },
+  "todos": {
+    "title": "Vazifalar",
+    "description": "REST service patternlari va typed state bilan feature module namunasi.",
+    "counter": "Sanoq: {{count}}",
+    "increment": "Oshirish",
+    "apiNote": "Live REST data yoqish uchun backendni VITE_API_URL orqali ulang."
+  },
+  "animation": {
+    "title": "Remotion animatsiya",
+    "description": "Product intro, onboarding va marketing kliplar uchun qayta ishlatiladigan video kompozitsiya."
+  },
+  "auth": {
+    "status": "Auth strategiya: {{strategy}}",
+    "jwtHint": "Productionda server-set httpOnly cookie afzal. API talab qilsa, Bearer tokenlar ham qo‘llab-quvvatlanadi."
+  }
 }

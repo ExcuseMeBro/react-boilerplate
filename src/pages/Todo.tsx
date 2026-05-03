@@ -1,44 +1,68 @@
-import Default from '@/layouts/Default.tsx';
-import { useAppDispatch, useTypedSelector } from '@/store';
-import { CounterServices } from '@/reducers/CounterSlice';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import i18n from '@/plugins/i18n.ts';
-export default function Todo() {
+import { todosService } from '@/features/todos';
+import { counterActions } from '@/reducers/CounterSlice';
+import { useAppDispatch, useAppSelector } from '@/store';
+
+const sampleTodos = [
+  'Create REST endpoint',
+  'Connect JWT login',
+  'Translate product copy',
+  'Render Remotion intro',
+];
+
+export default function TodoPage() {
   const { t } = useTranslation();
-
-  const changeLang = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
-
   const dispatch = useAppDispatch();
-  const count = useTypedSelector((state) => state.Counter.count);
+  const count = useAppSelector((state) => state.counter.count);
 
-  const increment = () => {
-    dispatch(CounterServices.actions.incrementNumber());
-  };
+  const todosQuery = useQuery({
+    queryKey: ['todos'],
+    queryFn: todosService.list,
+    enabled: false,
+  });
+
+  const todos =
+    todosQuery.data ?? sampleTodos.map((title, index) => ({ id: String(index), title }));
+
   return (
-    <Default>
-      <main className="mx-3">
-        <p className="text-3xl text-blue-500">{t('hello')}</p>
-        <div className="flex items-center gap-3">
+    <main className="mx-auto max-w-5xl px-4 py-14">
+      <div className="mb-8 flex flex-col gap-3">
+        <h1 className="text-4xl font-black tracking-tight text-slate-950">{t('todos.title')}</h1>
+        <p className="max-w-2xl text-slate-600">{t('todos.description')}</p>
+        <p className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-900">
+          {t('todos.apiNote')}
+        </p>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-[1fr_280px]">
+        <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="grid gap-3">
+            {todos.map((todo) => (
+              <article
+                className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 p-4"
+                key={todo.id}
+              >
+                <span className="font-semibold text-slate-800">{todo.title}</span>
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">
+                  REST
+                </span>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <aside className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
+          <p className="text-2xl font-black text-slate-950">{t('todos.counter', { count })}</p>
           <button
-            onClick={() => changeLang('en')}
-            className="pointer-events-auto rounded-md bg-indigo-600 px-3 py-2 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500">
-            English
+            className="mt-5 w-full rounded-full bg-indigo-600 px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-indigo-500"
+            onClick={() => dispatch(counterActions.increment())}
+            type="button"
+          >
+            {t('todos.increment')}
           </button>
-          <button
-            onClick={() => changeLang('uz')}
-            className="pointer-events-auto rounded-md bg-indigo-600 px-3 py-2 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500">
-            Uzbek
-          </button>
-        </div>
-        <p className="text-3xl text-red-500">Todos pages</p>
-        <button
-          onClick={() => increment()}
-          className="pointer-events-auto rounded-md bg-indigo-600 px-3 py-2 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-indigo-500">
-          Count {count}
-        </button>
-      </main>
-    </Default>
+        </aside>
+      </div>
+    </main>
   );
 }
