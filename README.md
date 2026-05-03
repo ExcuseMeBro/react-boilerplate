@@ -11,7 +11,7 @@ Clean starter for React apps that talk to REST APIs.
 - REST API client with JWT support
 - i18n: English, Uzbek, and Russian
 - Biome instead of ESLint and Prettier
-- Remotion animation + video render setup
+- Lightweight UI animations with Motion
 
 ## Start
 
@@ -31,8 +31,6 @@ npm run build           # type-check and build
 npm run check           # Biome lint + format check
 npm run check:write     # auto-fix safe Biome issues
 npm run audit           # security audit
-npm run remotion:studio # open Remotion Studio
-npm run remotion:render # render sample video
 ```
 
 ## REST API config
@@ -74,7 +72,6 @@ src/
   locales/          i18n dictionaries
   pages/            route pages
   plugins/          i18n setup
-  remotion/         video compositions
   services/         REST client and token storage
   store/            Redux Toolkit store
 ```

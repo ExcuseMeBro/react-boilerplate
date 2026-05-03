@@ -16,29 +16,25 @@
     "check:write": "biome check --write .",
     "format": "biome format --write .",
     "lint": "biome lint .",
-    "audit": "npm audit",
-    "remotion:studio": "remotion studio src/remotion/index.ts",
-    "remotion:render": "remotion render src/remotion/index.ts HeroAnimation out/hero-animation.mp4"
+    "audit": "npm audit"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
-    "@remotion/player": "^4.0.456",
     "@tanstack/react-query": "^5.100.8",
     "clsx": "^2.1.1",
     "i18next": "^26.0.8",
     "i18next-browser-languagedetector": "^8.2.1",
+    "motion": "^12.38.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-hook-form": "^7.75.0",
     "react-i18next": "^17.0.6",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.14.2",
-    "remotion": "^4.0.456",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.14",
-    "@remotion/cli": "^4.0.456",
     "@tailwindcss/vite": "^4.2.4",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",

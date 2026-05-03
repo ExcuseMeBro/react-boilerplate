@@ -4,12 +4,7 @@ import { todosService } from '@/features/todos';
 import { counterActions } from '@/reducers/CounterSlice';
 import { useAppDispatch, useAppSelector } from '@/store';
 
-const sampleTodos = [
-  'Create REST endpoint',
-  'Connect JWT login',
-  'Translate product copy',
-  'Render Remotion intro',
-];
+const sampleTodoKeys = ['api', 'auth', 'i18n', 'animation'] as const;
 
 export default function TodoPage() {
   const { t } = useTranslation();
@@ -23,7 +18,7 @@ export default function TodoPage() {
   });
 
   const todos =
-    todosQuery.data ?? sampleTodos.map((title, index) => ({ id: String(index), title }));
+    todosQuery.data ?? sampleTodoKeys.map((key) => ({ id: key, title: t(`todos.samples.${key}`) }));
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-14">

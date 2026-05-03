@@ -12,7 +12,7 @@
   "home": {
     "eyebrow": "Современный React starter",
     "title": "Запускайте проекты быстрее с чистыми настройками.",
-    "description": "Vite, React, TypeScript, REST API helpers, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind и Remotion готовы из коробки.",
+    "description": "Vite, React, TypeScript, REST API helpers, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind и Motion готовы из коробки.",
     "ctaPrimary": "Открыть задачи",
     "ctaSecondary": "Смотреть анимацию",
     "features": {
@@ -27,11 +27,18 @@
     "description": "Пример feature module с REST service patterns и typed state.",
     "counter": "Счётчик: {{count}}",
     "increment": "Увеличить",
-    "apiNote": "Подключите backend через VITE_API_URL, чтобы включить live REST data."
+    "apiNote": "Подключите backend через VITE_API_URL, чтобы включить live REST data.",
+    "samples": {
+      "api": "Создать REST endpoint",
+      "auth": "Подключить JWT login",
+      "i18n": "Перевести продуктовые тексты",
+      "animation": "Добавить лёгкую Motion-анимацию"
+    }
   },
   "animation": {
-    "title": "Remotion анимация",
-    "description": "Переиспользуемая video composition для product intro, onboarding и marketing clips."
+    "eyebrow": "Лёгкая анимация",
+    "title": "Лёгкая UI-анимация",
+    "description": "Небольшие Motion-примеры для плавных взаимодействий в продукте, онбординга и маркетинговых секций."
   },
   "auth": {
     "status": "Auth strategy: {{strategy}}",

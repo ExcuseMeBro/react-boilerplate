@@ -12,7 +12,7 @@
   "home": {
     "eyebrow": "Zamonaviy React starter",
     "title": "Toza defaultlar bilan tezroq ship qiling.",
-    "description": "Vite, React, TypeScript, REST API helperlar, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind va Remotion tayyor holatda keladi.",
+    "description": "Vite, React, TypeScript, REST API helperlar, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind va Motion tayyor holatda keladi.",
     "ctaPrimary": "Vazifalarni ochish",
     "ctaSecondary": "Animatsiyani ko‘rish",
     "features": {
@@ -27,11 +27,18 @@
     "description": "REST service patternlari va typed state bilan feature module namunasi.",
     "counter": "Sanoq: {{count}}",
     "increment": "Oshirish",
-    "apiNote": "Live REST data yoqish uchun backendni VITE_API_URL orqali ulang."
+    "apiNote": "Live REST data yoqish uchun backendni VITE_API_URL orqali ulang.",
+    "samples": {
+      "api": "REST endpoint yaratish",
+      "auth": "JWT loginni ulash",
+      "i18n": "Mahsulot matnlarini tarjima qilish",
+      "animation": "Yengil Motion animatsiya qo‘shish"
+    }
   },
   "animation": {
-    "title": "Remotion animatsiya",
-    "description": "Product intro, onboarding va marketing kliplar uchun qayta ishlatiladigan video kompozitsiya."
+    "eyebrow": "Yengil animatsiya",
+    "title": "Yengil UI animatsiya",
+    "description": "Silliq mahsulot interaksiyalari, onboarding va marketing bo‘limlari uchun kichik Motion namunalari."
   },
   "auth": {
     "status": "Auth strategiya: {{strategy}}",

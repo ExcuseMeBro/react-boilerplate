@@ -12,7 +12,7 @@
   "home": {
     "eyebrow": "Modern React starter",
     "title": "Ship faster with clean defaults.",
-    "description": "Vite, React, TypeScript, REST API helpers, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind, and Remotion are ready out of the box.",
+    "description": "Vite, React, TypeScript, REST API helpers, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind, and Motion are ready out of the box.",
     "ctaPrimary": "Open todos",
     "ctaSecondary": "View animation",
     "features": {
@@ -27,11 +27,18 @@
     "description": "Example feature module with REST service patterns and typed state.",
     "counter": "Count: {{count}}",
     "increment": "Increment",
-    "apiNote": "Connect your backend at VITE_API_URL to enable live REST data."
+    "apiNote": "Connect your backend at VITE_API_URL to enable live REST data.",
+    "samples": {
+      "api": "Create REST endpoint",
+      "auth": "Connect JWT login",
+      "i18n": "Translate product copy",
+      "animation": "Add lightweight Motion animation"
+    }
   },
   "animation": {
-    "title": "Remotion animation",
-    "description": "Reusable video composition for product intros, onboarding, and marketing clips."
+    "eyebrow": "Lightweight animation",
+    "title": "Lightweight UI animation",
+    "description": "Small Motion examples for smooth product interactions, onboarding, and marketing sections."
   },
   "auth": {
     "status": "Auth strategy: {{strategy}}",
