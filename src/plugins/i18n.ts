@@ -1,9 +1,9 @@
-import i18n from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { initReactI18next } from 'react-i18next';
-import en from '@/locales/en.json';
-import ru from '@/locales/ru.json';
-import uz from '@/locales/uz.json';
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
+import en from "@/locales/en.json";
+import ru from "@/locales/ru.json";
+import uz from "@/locales/uz.json";
 
 export const resources = {
   en: {
@@ -22,11 +22,11 @@ void i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'en',
-    supportedLngs: ['en', 'uz', 'ru'],
+    fallbackLng: "en",
+    supportedLngs: ["en", "uz", "ru"],
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
-      caches: ['localStorage'],
+      order: ["localStorage", "navigator", "htmlTag"],
+      caches: ["localStorage"],
     },
     interpolation: {
       escapeValue: false,

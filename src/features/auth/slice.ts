@@ -1,68 +1,76 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { tokenStorage } from '@/services/token-storage';
-import { authService } from './service';
-import type { AuthUser, LoginRequest } from './types';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { authService } from "./service";
+import type { AuthUser, LoginRequest } from "./types";
 
 interface AuthState {
   user: AuthUser | null;
-  accessToken: string | null;
-  status: 'idle' | 'loading' | 'authenticated' | 'anonymous';
+  status: "idle" | "loading" | "authenticated" | "anonymous";
   error: string | null;
 }
 
 const initialState: AuthState = {
   user: null,
-  accessToken: tokenStorage.get(),
-  status: tokenStorage.get() ? 'authenticated' : 'anonymous',
+  status: "idle",
   error: null,
 };
 
-export const login = createAsyncThunk('auth/login', async (payload: LoginRequest) => {
-  return authService.login(payload);
+// Keep access tokens out of Redux state and fulfilled action payloads.
+export const login = createAsyncThunk("auth/login", async (payload: LoginRequest) => {
+  return (await authService.login(payload)).user;
 });
 
-export const loadCurrentUser = createAsyncThunk('auth/me', async () => {
-  return authService.me();
+export const loadCurrentUser = createAsyncThunk("auth/me", async () => authService.me());
+export const refreshSession = createAsyncThunk("auth/refresh", async () => {
+  return (await authService.refresh()).user;
 });
-
-export const logout = createAsyncThunk('auth/logout', async () => {
-  await authService.logout();
-});
+export const logout = createAsyncThunk("auth/logout", async () => authService.logout());
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
+        state.user = null;
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.status = 'authenticated';
-        state.user = action.payload.user;
-        state.accessToken = action.payload.accessToken;
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.status = 'anonymous';
-        state.error = action.error.message ?? 'Login failed';
-      })
-      .addCase(loadCurrentUser.fulfilled, (state, action) => {
-        state.status = 'authenticated';
+        state.status = "authenticated";
         state.user = action.payload;
       })
-      .addCase(loadCurrentUser.rejected, (state) => {
-        state.status = 'anonymous';
+      .addCase(login.rejected, (state, action) => {
+        state.status = "anonymous";
         state.user = null;
-        state.accessToken = null;
+        state.error = action.error.message ?? "Login failed";
       })
-      .addCase(logout.fulfilled, (state) => {
-        state.status = 'anonymous';
-        state.user = null;
-        state.accessToken = null;
+      .addCase(loadCurrentUser.fulfilled, (state, action) => {
+        state.status = "authenticated";
+        state.user = action.payload;
         state.error = null;
-      });
+      })
+      .addCase(loadCurrentUser.rejected, (state, action) => {
+        state.status = "anonymous";
+        state.user = null;
+        state.error = action.error.message ?? "Session check failed";
+      })
+      .addCase(refreshSession.fulfilled, (state, action) => {
+        state.status = "authenticated";
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(refreshSession.rejected, (state, action) => {
+        state.status = "anonymous";
+        state.user = null;
+        state.error = action.error.message ?? "Session refresh failed";
+      })
+      .addCase(logout.fulfilled, () => ({ ...initialState, status: "anonymous" }))
+      .addCase(logout.rejected, (_state, action) => ({
+        ...initialState,
+        status: "anonymous",
+        error: action.error.message ?? "Server logout failed",
+      }));
   },
 });
 

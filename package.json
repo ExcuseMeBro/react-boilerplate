@@ -1,21 +1,20 @@
 {
   "name": "react-boilerplate",
-  "private": true,
   "version": "2.0.0",
+  "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=22.12.0",
-    "npm": ">=10.0.0"
-  },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "dev": "vp dev",
+    "build": "tsc --noEmit && vp build",
+    "preview": "vp preview",
     "typecheck": "tsc --noEmit",
-    "check": "biome check .",
-    "check:write": "biome check --write .",
-    "format": "biome format --write .",
-    "lint": "biome lint .",
+    "check": "vp check",
+    "check:write": "vp check --fix",
+    "format": "vp fmt",
+    "lint": "vp lint",
+    "test": "vp test",
+    "test:watch": "vp test watch",
+    "verify": "npm run check && npm run test && npm run build && npm run audit",
     "audit": "npm audit"
   },
   "dependencies": {
@@ -30,11 +29,10 @@
     "react-hook-form": "^7.75.0",
     "react-i18next": "^17.0.6",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.14.2",
+    "react-router-dom": "^7.18.2",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.14",
     "@tailwindcss/vite": "^4.2.4",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
@@ -42,6 +40,15 @@
     "@vitejs/plugin-react": "^6.0.1",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3",
-    "vite": "^8.0.10"
-  }
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.1.0",
+    "vite-plus": "1.1.0"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.1.0"
+  },
+  "engines": {
+    "node": "^22.18.0 || ^24.11.0 || >=26.0.0",
+    "npm": ">=10.0.0"
+  },
+  "packageManager": "npm@11.16.0"
 }

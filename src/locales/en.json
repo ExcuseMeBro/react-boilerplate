@@ -12,13 +12,13 @@
   "home": {
     "eyebrow": "Modern React starter",
     "title": "Ship faster with clean defaults.",
-    "description": "Vite, React, TypeScript, REST API helpers, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind, and Motion are ready out of the box.",
+    "description": "Vite+, React, TypeScript, REST API helpers, cookie/bearer auth, i18n, Redux Toolkit, TanStack Query, Tailwind, and Motion are ready out of the box.",
     "ctaPrimary": "Open todos",
     "ctaSecondary": "View animation",
     "features": {
       "rest": "REST-first API layer",
       "auth": "JWT-ready auth flow",
-      "tooling": "Biome formatting and linting",
+      "tooling": "Vite+ formatting, linting and tests",
       "i18n": "English, Uzbek, and Russian i18n"
     }
   },
