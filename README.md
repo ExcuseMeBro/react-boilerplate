@@ -1,14 +1,25 @@
-# React Boilerplate
+<div align="center">
 
-Reusable REST-first React starter with [Vite+](https://viteplus.dev/): one toolchain for development, builds, formatting, linting and tests. No GitHub CI/CD workflows, pre-commit hooks or agent setup required.
+# ⚡ React Boilerplate
 
-## Stack
+**Build faster. Start cleaner.**
 
-React 19, TypeScript 6, Vite+ 1.1 (Vite/Rolldown, Oxfmt, Oxlint and Vitest), Tailwind CSS 4, Redux Toolkit, TanStack Query, React Router, React Hook Form, Motion and i18next (English, Uzbek, Russian).
+A modular, REST-first React starter powered by [Vite+](https://viteplus.dev/).
 
-## Start
+[![React](https://img.shields.io/badge/React_19-151923?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript_6-151923?style=for-the-badge&logo=typescript&logoColor=3178C6)](https://www.typescriptlang.org/)
+[![Vite+](https://img.shields.io/badge/Vite%2B_1.1-151923?style=for-the-badge&logo=vite&logoColor=BD34FE)](https://viteplus.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_4-151923?style=for-the-badge&logo=tailwindcss&logoColor=06B6D4)](https://tailwindcss.com/)
 
-Use **Node 24 LTS** (`.node-version` pins 24.11.0) and npm 11. Node 22.18+ is also supported; see `package.json` for engine ranges.
+**Typed APIs · Secure auth patterns · EN / UZ / RU · No GitHub CI/CD**
+
+</div>
+
+---
+
+## 🚀 Quick start
+
+**Node 24 LTS + npm 11** recommended. See [.node-version](.node-version) and [engine ranges](package.json).
 
 ```sh
 npm ci
@@ -16,28 +27,32 @@ cp .env.example .env
 npm run dev
 ```
 
-Open `http://127.0.0.1:3000`. A global `vp` installation is **not required**: npm scripts use the pinned local Vite+ binary. This is a frontend starter, not a bundled backend: the home and animation pages run independently; the Todo example needs the REST API below. The default `/api` endpoint expects your own reverse proxy/backend. For a separate local backend, set `VITE_API_URL=http://localhost:8080/api` and configure its CORS policy.
+Open **http://127.0.0.1:3000**. No global `vp` required. This is a **frontend starter**: live auth/Todo data needs your own backend.
 
-## Commands
+## ✨ Built for real projects
 
-| Command               | Purpose                                                    |
-| --------------------- | ---------------------------------------------------------- |
-| `npm run dev`         | Local Vite+ development server                             |
-| `npm run check`       | Oxfmt formatting, Oxlint linting and type checks           |
-| `npm run check:write` | Format and apply lint fixes (review changes)               |
-| `npm run typecheck`   | Standalone TypeScript check                                |
-| `npm test`            | Non-watch unit tests via Vite+                             |
-| `npm run test:watch`  | Interactive test watch mode                                |
-| `npm run build`       | Type-check, then produce `dist/`                           |
-| `npm run preview`     | Local build preview on port 4173 (not a production server) |
-| `npm run audit`       | Audit the entire dependency tree, including dev tooling    |
-| `npm run verify`      | Check, test, build and audit together                      |
+| Layer              | Tools                                                              |
+| ------------------ | ------------------------------------------------------------------ |
+| Toolchain          | Vite+ · Rolldown · Oxfmt · Oxlint · Vitest                         |
+| UI                 | React 19 · TypeScript 6 · Tailwind 4 · Motion                      |
+| Data & forms       | TanStack Query · Redux Toolkit · React Hook Form                   |
+| Routing & language | React Router · i18next · English / Uzbek / Russian                 |
+| API & auth         | Scoped REST client · cookie/bearer modes · cancellation & timeouts |
 
-`vite.config.ts` contains the unified configuration and the `@/` source alias. `vite` is an npm alias to the matching Vite+ core, with an override to prevent plugin dependencies from installing a second Vite. Keep `vite-plus`, the core alias and override aligned when upgrading. Commit the lockfile and rerun `npm ci` + `npm run verify` after dependency changes. Biome configuration and scripts have been replaced.
+## 🛠️ Daily commands
 
-## Configuration
+```sh
+npm run dev          # Develop
+npm run check:write  # Format + fix lint issues; review changes
+npm test             # Run tests (test:watch for watch mode)
+npm run verify       # Format/lint/types + tests + build + audit
+npm run build        # Production output → dist/
+npm run preview      # Local preview → :4173, not a production server
+```
 
-Copy `.env.example`, then set only what your deployment needs:
+## 🔌 Connect your API
+
+Defaults in [.env.example](.env.example):
 
 ```dotenv
 VITE_API_URL=/api
@@ -45,72 +60,36 @@ VITE_AUTH_STRATEGY=cookie
 VITE_REQUEST_TIMEOUT_MS=15000
 ```
 
-- API base: same-origin absolute path (e.g. `/api`), or HTTP(S) URL. Absolute production APIs must use HTTPS. Credentials, query strings and fragments in the API base are rejected.
-- Auth: `cookie` (recommended) or `bearer`. Unknown values and invalid timeouts fail early.
-- Optional local bind/port overrides: `VITE_DEV_HOST`, `VITE_DEV_PORT`, `VITE_PREVIEW_PORT`. Loopback-only by default; avoid exposing dev/preview servers on untrusted networks.
-- **Every `VITE_*` variable is public, embedded at build time. Never put secrets in it.** Rebuild when configuration changes. `.env` files are ignored except the example.
-
-## Backend contract
-
-Adapt `src/features/*/service.ts` to your backend. Types are compile-time contracts, not runtime response validation: add schemas if untrusted responses require validation.
-
-| Endpoint                                      | Response                                      |
-| --------------------------------------------- | --------------------------------------------- |
-| `POST /auth/login` with `{ email, password }` | `{ user: { id, name, email }, accessToken? }` |
-| `GET /auth/me`                                | `{ id, name, email }`                         |
-| `POST /auth/refresh`                          | Same shape as login                           |
-| `POST /auth/logout`                           | Empty / 204                                   |
-| `GET /todos`                                  | `[{ id, title, completed }]`                  |
-| `POST /todos` with `{ title }`                | Created todo                                  |
-| `PATCH /todos/:id` with `{ completed }`       | Updated todo                                  |
-| `DELETE /todos/:id`                           | Empty / 204                                   |
-
-Login and refresh require `accessToken` only in bearer mode. The backend must set/rotate a refresh cookie if refresh is supported; no client-managed refresh token is stored. Dispatch `loadCurrentUser()` for cookie session restoration, or `refreshSession()` for bearer restoration when your backend supports it. There is no automatic retry/refresh loop or route guard; wire these into your application's startup and access policy.
-
-## API usage
+Use an HTTPS API in production; `http://localhost:8080/api` is allowed for development. **`VITE_*` values are public, build-time configuration — never secrets.** Dev/preview bind to loopback; optional host/port overrides are in the example.
 
 ```ts
 import { api } from "@/services/http";
 
-const user = await api.get<User>("/users/123", { signal });
-await api.post("/users", { name: "Ada" });
-await api.get<string>("/health", { responseType: "text", auth: false });
+const todos = await api.get<Todo[]>("/todos", { signal });
+await api.post("/todos", { title: "Ship something great" });
 ```
 
-Paths resolve **under the configured API base**, not under the site root. Absolute URLs must stay within that same base. Cross-origin URLs, traversal outside the base, credential-bearing URLs and redirects are blocked, even with `auth: false`. Timeout remains active during body consumption and composes with caller cancellation. JSON is the default; `FormData`, empty/204/205 and explicit text responses are supported. Non-2xx responses throw `ApiError` with `status` and optional `{ message, code, errors }`. Network/abort/parse errors remain distinguishable.
+Paths stay under the configured API base; out-of-scope URLs and redirects are blocked. JSON, FormData, text and empty responses are supported; non-2xx responses throw `ApiError`. Pass Query's `signal` into services to preserve cancellation.
 
-## Authentication and security
+## 🛡️ Secure defaults, clear boundaries
 
-- Prefer server-set **HttpOnly, Secure, SameSite** session/refresh cookies. Cookie auth sends credentials to the configured API. Cross-origin credentialed APIs need an explicit allowed frontend origin and `Access-Control-Allow-Credentials: true`, never wildcard CORS.
-- Bearer access tokens are **memory-only**, not persisted in `localStorage`, Redux state or fulfilled action payloads. Reloading loses the access token until an explicit refresh/login. Redux DevTools are disabled because thunk arguments include login credentials; do not add action logging without redaction.
-- Bearer requests omit cookies by default; auth endpoints explicitly include refresh/session cookies. On logout the local token/user are cleared even if the server fails, but the error is surfaced: an HttpOnly server cookie cannot be cleared by JavaScript, so retry server logout as needed.
-- Cookie protection is a **backend responsibility**: use appropriate SameSite policy plus origin/CSRF validation on state-changing endpoints. Pass your backend's CSRF header via `RequestOptions.headers` (including on login/refresh/logout if required by that backend); the starter cannot invent your CSRF protocol.
-- Memory-only tokens reduce persistent exposure, but do not prevent XSS. Avoid unsafe HTML, validate backend input, use least-privilege authorization and production security headers. Audits only report currently known dependency advisories; no zero-risk guarantee.
+- Prefer backend-set **HttpOnly + Secure + SameSite** cookies. The backend must enforce authorization, CSRF/origin validation and explicit credentialed CORS — never wildcard origins. Pass required CSRF headers through `RequestOptions.headers`.
+- Bearer tokens are **memory-only**: no localStorage or Redux token payloads. Reload requires login/refresh; Redux DevTools are disabled to avoid exposing login credentials. Do not add unredacted action logging.
+- Failed server logout clears local state, **not** an HttpOnly server cookie; retry server logout as needed. Memory storage does not prevent XSS, and audits cannot guarantee zero risk.
 
-## Deploy without GitHub CI/CD
+<details>
+<summary><strong>📖 Backend contract & extension guide</strong></summary>
 
-```sh
-npm ci
-npm run verify
-# Upload dist/ to your static host.
-```
+**Auth:** `POST /auth/login` accepts `{ email, password }`; login/refresh return `{ user: { id, name, email }, accessToken? }` (token required in bearer mode). `GET /auth/me` returns the user; `POST /auth/logout` returns empty/204. `POST /auth/refresh` needs a backend-managed refresh cookie. Dispatch `loadCurrentUser()` for cookie restoration or `refreshSession()` for bearer restoration; automatic refresh and route guards are not bundled.
 
-Use HTTPS. Serve static assets directly; route frontend history URLs (e.g. `/todos`) to `index.html`. Route `/api/*` to the backend **before** the SPA fallback, never return HTML for API requests. If using an absolute API origin, configure CORS/cookies there. Development and preview servers are not production servers. Production source maps are disabled by default. Configure CSP, HSTS, frame restrictions and other headers at your host; a suitable CSP depends on your API origin and the integrations you add.
+**Todos:** `GET /todos` returns `[{ id, title, completed }]`; `POST /todos` takes `{ title }`; `PATCH /todos/:id` takes `{ completed }`; both return a todo. `DELETE /todos/:id` returns empty/204. Adapt [feature services](src/features) to your backend; TypeScript types are not runtime response validation.
 
-## Structure and extension
+**Extend:** add `src/features/<name>/{types,service}.ts`, then a [page](src/pages), [route](src/router) and keys in all three [locale dictionaries](src/locales). Keep server state in Query and client state in Redux. Add colocated tests using `vite-plus/test`.
 
-```text
-src/
-  components/     shared UI
-  config/         validated public environment
-  features/       auth and todos: types, services, state, tests
-  layouts/        app layouts
-  locales/        en/uz/ru dictionaries
-  pages/          route pages
-  plugins/        i18n setup
-  router/         route definitions
-  services/       scoped HTTP client and memory token storage
-  store/          Redux setup (app/client state)
-```
+**Toolchain:** unified [vite.config.ts](vite.config.ts), `@/` source alias. Keep `vite-plus`, the `vite` core alias and its override aligned; commit the lockfile and rerun `npm ci` + `npm run verify` after upgrades.
 
-Create `src/features/<name>/{types,service}.ts`; use TanStack Query for server state, Redux for client state, and React Hook Form for forms. Add routes and translations in all three dictionaries. Pass Query's `signal` into service calls so unmount/invalidation cancellation reaches fetch. Add tests beside each module using `vite-plus/test`; run `npm run verify`. Optional auth/animation/demo features can be removed alongside their dependencies when not needed. No GraphQL or opinionated backend/cloud provider is required.
+</details>
+
+## 📦 Deploy anywhere
+
+Run `npm ci && npm run verify`, then upload **`dist/`** to your static host over HTTPS. Route `/api/*` to your backend **before** the SPA fallback; other frontend routes should serve `index.html`. Configure CORS/cookies and CSP/HSTS/frame restrictions on your servers. Production source maps are disabled; dev/preview are not production servers. No cloud provider or GitHub workflow required.
