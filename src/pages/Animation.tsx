@@ -1,7 +1,7 @@
-import { motion } from 'motion/react';
-import { useTranslation } from 'react-i18next';
+import { motion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
-const cards = ['REST', 'JWT', 'i18n', 'Biome', 'Tailwind', 'Motion'];
+const cards = ["REST", "Auth", "i18n", "Vite+", "Tailwind", "Motion"];
 
 export default function AnimationPage() {
   const { t } = useTranslation();
@@ -12,12 +12,12 @@ export default function AnimationPage() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-8 space-y-3"
         initial={{ opacity: 0, y: 16 }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
       >
         <h1 className="text-4xl font-black tracking-tight text-slate-950">
-          {t('animation.title')}
+          {t("animation.title")}
         </h1>
-        <p className="max-w-2xl text-slate-600">{t('animation.description')}</p>
+        <p className="max-w-2xl text-slate-600">{t("animation.description")}</p>
       </motion.div>
 
       <section className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 p-6 shadow-xl shadow-slate-200">
@@ -25,7 +25,7 @@ export default function AnimationPage() {
           <motion.div
             animate={{ scale: [1, 1.08, 1], x: [0, 30, 0], y: [0, -20, 0] }}
             className="absolute right-10 top-10 h-48 w-48 rounded-full bg-indigo-500/40 blur-3xl"
-            transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: 'easeInOut' }}
+            transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           />
 
           <motion.div
@@ -35,7 +35,7 @@ export default function AnimationPage() {
             transition={{ delay: 0.1, duration: 0.45 }}
           >
             <p className="text-sm font-black uppercase tracking-[0.35em] text-indigo-200">
-              {t('animation.eyebrow')}
+              {t("animation.eyebrow")}
             </p>
             <h2 className="mt-5 text-5xl font-black tracking-tight md:text-7xl">
               React Boilerplate

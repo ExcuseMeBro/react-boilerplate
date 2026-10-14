@@ -1,12 +1,12 @@
-import { createBrowserRouter } from 'react-router-dom';
-import HomePage from '@/App';
-import DefaultLayout from '@/layouts/Default';
-import AnimationPage from '@/pages/Animation';
-import TodoPage from '@/pages/Todo';
+import { createBrowserRouter } from "react-router-dom";
+import HomePage from "@/App";
+import DefaultLayout from "@/layouts/Default";
+import AnimationPage from "@/pages/Animation";
+import TodoPage from "@/pages/Todo";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <DefaultLayout />,
     children: [
       {
@@ -14,11 +14,11 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'todos',
+        path: "todos",
         element: <TodoPage />,
       },
       {
-        path: 'animation',
+        path: "animation",
         element: <AnimationPage />,
       },
     ],

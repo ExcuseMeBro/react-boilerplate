@@ -1,9 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { type TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import authReducer from '@/features/auth/slice';
-import counterReducer from '@/reducers/CounterSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { type TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import authReducer from "@/features/auth/slice";
+import counterReducer from "@/reducers/CounterSlice";
 
 export const store = configureStore({
+  // Login thunk arguments contain credentials; never expose them to DevTools.
+  devTools: false,
   reducer: {
     auth: authReducer,
     counter: counterReducer,

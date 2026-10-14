@@ -12,13 +12,13 @@
   "home": {
     "eyebrow": "Современный React starter",
     "title": "Запускайте проекты быстрее с чистыми настройками.",
-    "description": "Vite, React, TypeScript, REST API helpers, JWT auth, i18n, Redux Toolkit, TanStack Query, Biome, Tailwind и Motion готовы из коробки.",
+    "description": "Vite+, React, TypeScript, REST API helpers, cookie/bearer auth, i18n, Redux Toolkit, TanStack Query, Tailwind и Motion готовы из коробки.",
     "ctaPrimary": "Открыть задачи",
     "ctaSecondary": "Смотреть анимацию",
     "features": {
       "rest": "REST-first API слой",
       "auth": "JWT-ready auth flow",
-      "tooling": "Форматирование и linting через Biome",
+      "tooling": "Форматирование, linting и тесты через Vite+",
       "i18n": "i18n на английском, узбекском и русском"
     }
   },
