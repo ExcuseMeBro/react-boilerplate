@@ -37,6 +37,7 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
     },
     build: {
+      manifest: true,
       sourcemap: mode !== "production",
       target: "es2022",
       cssMinify: "lightningcss",

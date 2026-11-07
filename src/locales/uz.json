@@ -3,6 +3,11 @@
     "name": "React Boilerplate",
     "tagline": "REST ilovalar uchun production-ready starter"
   },
+  "route": {
+    "loading": "Sahifa yuklanmoqda…",
+    "error": "Sahifa yuklanmadi. Qayta yuklang yoki bosh sahifaga qayting.",
+    "reload": "Qayta yuklash"
+  },
   "nav": {
     "home": "Bosh sahifa",
     "todos": "Vazifalar",

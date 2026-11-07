@@ -8,10 +8,10 @@ A modular, REST-first React starter powered by [Vite+](https://viteplus.dev/).
 
 [![React](https://img.shields.io/badge/React_19-151923?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript_6-151923?style=for-the-badge&logo=typescript&logoColor=3178C6)](https://www.typescriptlang.org/)
-[![Vite+](https://img.shields.io/badge/Vite%2B_1.1-151923?style=for-the-badge&logo=vite&logoColor=BD34FE)](https://viteplus.dev/)
+[![Vite+](https://img.shields.io/badge/Vite%2B_1.5-151923?style=for-the-badge&logo=vite&logoColor=BD34FE)](https://viteplus.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_4-151923?style=for-the-badge&logo=tailwindcss&logoColor=06B6D4)](https://tailwindcss.com/)
 
-**Typed APIs · Secure auth patterns · EN / UZ / RU · No GitHub CI/CD**
+**Typed APIs · Secure auth patterns · EN / UZ / RU · GitHub Actions CI**
 
 </div>
 
@@ -19,15 +19,38 @@ A modular, REST-first React starter powered by [Vite+](https://viteplus.dev/).
 
 ## 🚀 Quick start
 
-**Node 24 LTS + npm 11** recommended. See [.node-version](.node-version) and [engine ranges](package.json).
+**Node 22.18+ + npm 11.16.0** (CI uses Node 22). See [.node-version](.node-version) and [engine ranges](package.json).
 
 ```sh
+python3 scripts/bootstrap.py --name my-app --dry-run
+python3 scripts/bootstrap.py --name my-app
 npm ci
-cp .env.example .env
 npm run dev
 ```
 
 Open **http://127.0.0.1:3000**. No global `vp` required. This is a **frontend starter**: live auth/Todo data needs your own backend.
+
+## Bootstrap a new project
+
+Python 3.9+ is required only for bootstrap/testing; the CLI has no dependencies.
+Run `python3 scripts/bootstrap.py --name my-app [--dry-run]` from any directory.
+The name is a 1–64 character lowercase slug starting with a letter; digits and
+single internal hyphens are allowed. Paths, shell syntax, whitespace and reserved
+device names are rejected before writes.
+
+Bootstrap updates `package.json`, both root names in `package-lock.json`,
+`index.html`'s title and `app.name` in EN/UZ/RU. React has no native application
+ID. Demo copy is otherwise unchanged. It creates `.env` from `.env.example`
+with owner-only permissions **only when absent**, including preserving existing
+or dangling symlinks. It never reads existing environment files, installs
+dependencies, generates credentials, renames directories, changes Git remotes or
+touches other credentials. `VITE_*` values are public, not secrets.
+
+Dry-run lists changed filenames, never values; repeating the same name is a no-op.
+Malformed or linked config files are rejected during preflight. Run on a trusted,
+idle checkout: replacement is atomic per file, not a multi-file transaction; do
+not run concurrent bootstrap/edit processes. On interruption, rerun the same name.
+Review the diff and run `npm run verify` after configuration.
 
 ## ✨ Built for real projects
 
@@ -49,6 +72,40 @@ npm run verify       # Format/lint/types + tests + build + audit
 npm run build        # Production output → dist/
 npm run preview      # Local preview → :4173, not a production server
 ```
+
+## Continuous integration
+
+[GitHub Actions](.github/workflows/ci.yml) runs on pull requests and pushes to
+`dev`. It uses `.node-version`, npm 11.16.0 from `packageManager`, `npm ci`
+and an npm download cache keyed by OS/architecture, resolved Node/npm versions
+and the lockfile. It does not cache `node_modules`. Actions are commit-pinned,
+permissions are read-only, checkout credentials are not retained and no production
+secrets are required. There are no ignored failures or audit threshold exemptions.
+
+Run the same gates locally:
+
+```sh
+npm ci
+npm run check
+npm test
+python3 -m unittest discover -s scripts -p 'test_*.py' -v
+npm run build
+node scripts/bundle-size.mjs dist --assert-lazy
+npm run audit
+```
+
+## Route chunks
+
+Home and the layout remain eager. `/todos` and `/animation` use React Router
+lazy imports with shared localized loading/recovery states. During navigation the
+current page and navbar stay visible. A failed chunk offers a full reload (useful
+after deployment) or home navigation, without showing internal exception details.
+Direct entry still requires your static host's SPA fallback.
+
+See [the reproducible production bundle comparison](docs/bundle-size.md).
+`npm run build` emits a manifest; `scripts/bundle-size.mjs` sums only the
+entry's transitive **static** JS imports, excluding lazy chunks, CSS and assets.
+The optional `--assert-lazy` fails if either route is eager or shares one chunk.
 
 ## 🔌 Connect your API
 
@@ -92,4 +149,4 @@ Paths stay under the configured API base; out-of-scope URLs and redirects are bl
 
 ## 📦 Deploy anywhere
 
-Run `npm ci && npm run verify`, then upload **`dist/`** to your static host over HTTPS. Route `/api/*` to your backend **before** the SPA fallback; other frontend routes should serve `index.html`. Configure CORS/cookies and CSP/HSTS/frame restrictions on your servers. Production source maps are disabled; dev/preview are not production servers. No cloud provider or GitHub workflow required.
+Run `npm ci && npm run verify`, then upload **`dist/`** to your static host over HTTPS. Route `/api/*` to your backend **before** the SPA fallback; other frontend routes should serve `index.html`. Configure CORS/cookies and CSP/HSTS/frame restrictions on your servers. Production source maps are disabled; dev/preview are not production servers. No cloud provider is required; the CI workflow verifies changes but does not deploy them.

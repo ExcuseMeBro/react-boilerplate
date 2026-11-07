@@ -3,6 +3,11 @@
     "name": "React Boilerplate",
     "tagline": "Production-ready starter for REST apps"
   },
+  "route": {
+    "loading": "Loading page…",
+    "error": "This page could not load. Reload to try again, or return home.",
+    "reload": "Reload page"
+  },
   "nav": {
     "home": "Home",
     "todos": "Todos",
