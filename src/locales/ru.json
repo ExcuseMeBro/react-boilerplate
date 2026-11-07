@@ -3,6 +3,11 @@
     "name": "React Boilerplate",
     "tagline": "Production-ready starter для REST-приложений"
   },
+  "route": {
+    "loading": "Загрузка страницы…",
+    "error": "Не удалось загрузить страницу. Обновите её или вернитесь на главную.",
+    "reload": "Обновить страницу"
+  },
   "nav": {
     "home": "Главная",
     "todos": "Задачи",
